@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+    app:
+        build: .
+        ports:
+        - '8080:8080'
+        volumes:
+        - ./:/opt/app
+        working_dir: /opt/app
+        links:
+        - database
+        user: appuser
+        command: mvn spring-boot:run
+    database:
+        image: mysql:latest
+        ports:
+        - '3306:3306'
+        environment:
+        - "MYSQL_ROOT_PASSWORD=123456"
